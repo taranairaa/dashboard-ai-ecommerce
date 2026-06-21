@@ -80,19 +80,43 @@ tombol_klik = st.button("Proses Prediksi")
 st.markdown('</div>', unsafe_allow_html=True) # Tutup main-box input
 
 # 5. CONTAINER LOGIKA OUTPUT HASIL EVALUASI DIKLIK
+# 5. CONTAINER LOGIKA OUTPUT HASIL EVALUASI DIKLIK (BERDASARKAN GRAFIK BAB 4 KAMU)
 if tombol_klik:
     st.markdown('<div class="main-box"><div class="title-box">Output Evaluasi & Tindakan Strategis</div>', unsafe_allow_html=True)
     
-    # Aturan keputusan bisnis dinamis berbasis input user
-    if page_values > 0.0:
+    # 1. PageValues (Bobot: 65%) -> Dinormalisasi dibagi 100 dengan batas maks pengaruh
+    page_val_score = min(page_values / 100.0, 1.0) * 0.65
+    
+    # 2. ProductRelated_Duration (Bobot: 10%) -> Dinormalisasi dibagi 600 detik (10 menit)
+    duration_score = min(prod_duration / 600.0, 1.0) * 0.10
+    
+    # 3. Administrative & Informational (Bobot gabungan: 4% + 2% = 6%)
+    admin_info_score = min((admin_page + info_page) / 10.0, 1.0) * 0.06
+    
+    # 4. Bounce Rates & Exit Rates (Bobot: 7% & 12%) -> Sifatnya negatif (mengurangi peluang beli)
+    # Semakin tinggi angka bounce/exit rate, pinalti semakin besar
+    rate_penalty = (bounce_rate * 0.07) + (exit_rate * 0.12)
+    
+    # Total akumulasi skor probabilitas niat beli
+    skor_total = (page_val_score + duration_score + admin_info_score) - rate_penalty
+    
+    # Mengubah ke persen dengan batas minimum 0% dan maksimum 100%
+    skor_akhir_persen = max(min(skor_total * 100, 100.0), 0.0)
+
+    # Penentuan Status Berdasarkan Ambang Batas (Threshold) Probabilitas 50%
+    if skor_akhir_persen >= 50.0:
         status, solusi, warna = "POTENSIAL MEMBELI", "Berikan Promo Flash", "green"
-        rekomendasi_detail = "Sesi Potensial Membeli: Dorong konversi dengan memunculkan pop-up kupon diskon 10% atau opsi gratis ongkos kirim secara real-time sebelum pengunjung meninggalkan halaman."
+        rekomendasi_detail = f"Sesi Potensial Membeli (Probabilitas: {skor_akhir_persen:.1f}%): Dorong konversi dengan memunculkan pop-up kupon diskon 10% atau opsi gratis ongkos kirim secara real-time sebelum pengunjung meninggalkan halaman."
     else:
         status, solusi, warna = "HANYA BROWSING", "Retargeting Iklan", "red"
-        rekomendasi_detail = "Sesi Hanya Browsing: Minimalkan alokasi biaya pemasaran langsung pada sesi aktif ini, melainkan simpan log aktivitas untuk penargetan ulang (retargeting) di media sosial."
+        rekomendasi_detail = f"Sesi Hanya Browsing (Probabilitas: {skor_akhir_persen:.1f}%): Minimalkan alokasi biaya pemasaran langsung pada sesi aktif ini, melainkan simpan log aktivitas untuk penargetan ulang (retargeting) di media sosial."
 
     # Render komponen tabel HTML
     html_tabel = f"""
+    <div style="margin-bottom: 15px; background: #f9f9f9; padding: 10px; border-radius: 5px; border-left: 5px solid #9B5DE5;">
+        <span style="font-weight: bold; color: #4A0E4E;">📊 Hasil Analisis Berbasis Feature Importance Model: {skor_akhir_persen:.1f}%</span>
+    </div>
+    
     <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; background-color: white; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 15px;">
         <thead>
             <tr style="background-color: #FFF0F0; border-bottom: 2px solid #FFB7B2; color: #4A0E4E;">

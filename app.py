@@ -58,14 +58,14 @@ st.markdown('<div class="main-box"><div class="title-box">Form Input Aktivitas P
 
 col1, col2, col3 = st.columns(3)
 with col1:
-    admin_page = st.number_input("[ Kolom Input 1 ] Administrative Page", min_value=0, value=2)
-    page_values = st.number_input("[ Kolom Input 1 ] Page Values", min_value=0.0, value=45.20)
+    admin_page = st.number_input("Administrative Page", min_value=0, value=2)
+    page_values = st.number_input("Page Values", min_value=0.0, value=45.20)
 with col2:
-    info_page = st.number_input("[ Kolom Input 1 ] Informational Page", min_value=0, value=1)
-    special_day = st.number_input("[ Kolom Input 1 ] Special Day (0.0 - 1.0)", min_value=0.0, max_value=1.0, value=0.0)
+    info_page = st.number_input("Informational Page", min_value=0, value=1)
+    special_day = st.number_input("Special Day (0.0 - 1.0)", min_value=0.0, max_value=1.0, value=0.0)
 with col3:
-    prod_page = st.number_input("[ Kolom Input 1 ] Product Related Page", min_value=0, value=15)
-    prod_duration = st.number_input("[ Kolom Input 1 ] Product Duration (Detik)", min_value=0, value=240)
+    prod_page = st.number_input("Product Related Page", min_value=0, value=15)
+    prod_duration = st.number_input("Product Duration (Detik)", min_value=0, value=240)
 
 col_extra1, col_extra2, col_extra3 = st.columns(3)
 with col_extra1:

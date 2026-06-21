@@ -54,7 +54,7 @@ st.markdown("""
 """, unsafe_allow_html=True)
 
 # 4. CONTAINER FORM INPUT UTAMA (TOP 5 FEATURE IMPORTANCE)
-st.markdown('<div class="main-box"><div class="title-box">Form Input Aktivitas Pengunjung Sesi (Top 5 Variabel Utama)</div>', unsafe_allow_html=True)
+st.markdown('<div class="main-box"><div class="title-box">Form Input Aktivitas Pengunjung Sesi</div>', unsafe_allow_html=True)
 
 # Membagi form menjadi 2 baris agar layout tetap seimbang dan rapi
 row1_col1, row1_col2, row1_col3 = st.columns(3)
@@ -72,7 +72,7 @@ with row2_col2:
     bounce_rate = st.number_input("Bounce Rate", min_value=0.0, max_value=1.0, value=0.01, help="Persentase pengunjung langsung kabur setelah 1 halaman")
 with row2_col3:
     # Bulan kunjungan dipertahankan sebagai pelengkap konteks waktu bisnis
-    bulan = st.selectbox("Bulan Kunjungan", ['Feb', 'Mar', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
+    bulan = st.selectbox("Bulan Kunjungan", ['Jan', 'Feb', 'Mar', 'May', 'June', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'])
 
 # Tombol Eksekusi
 tombol_klik = st.button("Proses Prediksi")

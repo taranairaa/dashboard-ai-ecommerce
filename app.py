@@ -4,7 +4,7 @@ import pandas as pd
 # 1. Konfigurasi halaman dasar
 st.set_page_config(page_title="Sistem Deteksi Dini Transaksi E-Commerce", layout="wide")
 
-# 2. Injeksi CSS kustom (Aman tanpa benturan f-string)
+# 2. Injeksi CSS kustom 
 st.markdown("""
     <style>
     .stApp {
@@ -79,7 +79,7 @@ tombol_klik = st.button("Proses Prediksi")
 st.markdown('</div>', unsafe_allow_html=True) # Tutup main-box input
 
 
-# 5. CONTAINER LOGIKA OUTPUT HASIL EVALUASI (SINKRON TOP 5 GRAFIK BAB 4)
+# 5. CONTAINER LOGIKA OUTPUT HASIL EVALUASI 
 if tombol_klik:
     st.markdown('<div class="main-box"><div class="title-box">Output Evaluasi & Tindakan Strategis</div>', unsafe_allow_html=True)
     
